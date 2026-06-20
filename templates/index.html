@@ -2,57 +2,127 @@
 <html>
 
 <head>
+
     <title>PBU Analyzer</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='css/style.css') }}">
+
 </head>
 
 <body>
 
-    <h1>PBU Analysis Tool</h1>
+<div class="container">
 
-    <form action="/run" method="post" enctype="multipart/form-data">
+    <h1>PBU Analysis Suite</h1>
 
-        <input type="file" name="file">
+    <div class="card">
 
-        <br><br>
+        <h2>PBU Analysis</h2>
 
-        <input type="radio"
-               name="mode"
-               value="preprocess"
-               checked>
-        Preprocess only
+        <form action="/run"
+              method="post"
+              enctype="multipart/form-data">
 
-        <br>
+            <label>
+                Select CSV file
+            </label>
 
-        <input type="radio"
-               name="mode"
-               value="full">
-        Preprocess + Analyze
+            <br><br>
 
-        <br>
+            <input type="file"
+                   name="file"
+                   required>
 
-        <input type="radio"
-               name="mode"
-               value="analyze">
-        Analyze already preprocessed file
+            <br><br>
 
-        <br><br>
+            <label>
 
-        <button type="submit">
-            Run
-        </button>
-    <h2>Comparison Tool</h2>
+                <input type="radio"
+                       name="mode"
+                       value="preprocess"
+                       checked>
 
-    <a href="/compare">
+                Preprocess only
 
-    <button>
-    Open Comparison Tool
-    </button>
+            </label>
 
-    </a>
-    </form>
+            <br>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+            <label>
+
+                <input type="radio"
+                       name="mode"
+                       value="full">
+
+                Preprocess + Analyze
+
+            </label>
+
+            <br>
+
+            <label>
+
+                <input type="radio"
+                       name="mode"
+                       value="analyze">
+
+                Analyze existing processed file
+
+            </label>
+
+            <br><br>
+
+            <button type="submit">
+                Run Analysis
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Comparison Tool</h2>
+
+        <p>
+            Compare raw data,
+            processed data,
+            and detected PBUs.
+        </p>
+
+        <a href="/compare"
+           class="button-link">
+
+            Open Comparison Tool
+
+        </a>
+
+    </div>
+
+    <div class="card">
+
+        <h2>CSV Viewer</h2>
+
+        <p>
+            Split large CSV datasets
+            into multiple graphs.
+        </p>
+
+        <a href="/view"
+           class="button-link">
+
+            Open Viewer
+
+        </a>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static',
+filename='js/script.js') }}"></script>
 
 </body>
 

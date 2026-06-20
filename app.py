@@ -28,6 +28,7 @@ def home():
 )
 def run_compare():
 
+
     raw_file = request.files["raw"]
     processed_file = request.files["processed"]
     result_file = request.files["result"]
@@ -41,11 +42,32 @@ def run_compare():
     result_file.save(
         "result.csv"
     )
+    comparison_folder = os.path.join(
+        "static",
+        "comparison"
+    )
 
+    if os.path.exists(comparison_folder):
+
+        for f in os.listdir(comparison_folder):
+
+            try:
+                os.remove(
+                    os.path.join(
+                        comparison_folder,
+                        f
+                    )
+                )
+            except:
+                pass
     subprocess.run([
 
         "python",
-        "compare.py"
+        "compare.py",
+
+        "input_1.csv",
+        "processed.csv",
+        "result.csv"
 
     ])
 
@@ -172,9 +194,36 @@ def comparison_results():
 
     if os.path.exists(folder):
 
-        plots = sorted(
-            os.listdir(folder)
-        )
+        plots = []
+
+        if os.path.exists(folder):
+
+            files = os.listdir(folder)
+
+            # Always first
+            if "comparison.png" in files:
+                plots.append("comparison.png")
+
+            if "pbu_overview.png" in files:
+                plots.append("pbu_overview.png")
+
+            # Then pair PBU + derivative
+            i = 1
+
+            while True:
+
+                pbu = f"pbu_{i:02d}.png"
+                der = f"derivative_{i:02d}.png"
+
+                if pbu not in files:
+                    break
+
+                plots.append(pbu)
+
+                if der in files:
+                    plots.append(der)
+
+                i += 1
 
     return render_template(
 
@@ -223,7 +272,58 @@ def results():
         plots=plots
 
     )
+@app.route("/view")
+def view():
 
+    return render_template(
+        "view.html"
+    )
+@app.route(
+    "/run_view",
+    methods=["POST"]
+)
+@app.route("/view_results")
+def view_results():
+
+    plots = []
+
+    folder = os.path.join(
+        "static",
+        "view"
+    )
+
+    if os.path.exists(folder):
+
+        plots = sorted(
+            os.listdir(folder)
+        )
+
+    return render_template(
+        "view_results.html",
+        plots=plots
+    )
+def run_view():
+
+    file = request.files["file"]
+
+    graphs = request.form["graphs"]
+
+    file.save("view_input.csv")
+
+    subprocess.run([
+
+        "python",
+        "view.py",
+        "view_input.csv",
+        graphs
+
+    ])
+
+    return redirect(
+        url_for(
+            "view_results"
+        )
+    )
 
 if __name__ == "__main__":
 

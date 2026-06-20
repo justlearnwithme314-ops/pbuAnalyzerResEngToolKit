@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>CSV Viewer</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',
+filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<h1>CSV Viewer</h1>
+
+<form
+action="/run_view"
+method="post"
+enctype="multipart/form-data">
+
+<input
+type="file"
+name="file"
+required>
+
+<br><br>
+
+<label>
+Number of graphs:
+</label>
+
+<input
+type="number"
+name="graphs"
+min="1"
+max="100"
+value="20">
+
+<br><br>
+
+<button type="submit">
+
+Generate
+
+</button>
+
+</form>
+
+</body>
+
+</html>
