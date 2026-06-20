@@ -1,0 +1,21 @@
+# Generated files
+processed.csv
+result.csv
+reservoir_predictions.csv
+finaly.csv
+
+# Large datasets
+input.csv
+input_1.csv
+well_03_Pressure_data.csv
+train_data.csv
+
+# Upload folder
+upload/
+
+# Plots
+static/plots/
+
+# Python cache
+__pycache__/
+*.pyc
