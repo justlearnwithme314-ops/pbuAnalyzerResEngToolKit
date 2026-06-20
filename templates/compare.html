@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Comparison Tool</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+</head>
+
+<h1>Comparison Tool</h1>
+
+<form action="/run_compare"
+      method="post"
+      enctype="multipart/form-data">
+
+    <p>Raw Input CSV</p>
+    <input type="file" name="raw" required>
+
+    <p>Processed CSV</p>
+    <input type="file" name="processed" required>
+
+    <p>Result CSV</p>
+    <input type="file" name="result" required>
+
+    <br><br>
+
+    <button type="submit">
+        Run Comparison
+    </button>
+
+</form>
+
+</body>
+</html>

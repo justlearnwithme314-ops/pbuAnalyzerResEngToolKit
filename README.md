@@ -1,1 +1,1 @@
-"I'm a dummy! :D "
+"I'm dummy"

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>View Results</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',
+filename='css/style.css') }}">
+
+<style>
+
+img{
+    width:95%;
+    margin-bottom:30px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Generated Graphs</h1>
+
+{% for plot in plots %}
+
+<h3>{{ plot }}</h3>
+
+<img src="/static/view/{{ plot }}">
+
+{% endfor %}
+
+</body>
+
+</html>
