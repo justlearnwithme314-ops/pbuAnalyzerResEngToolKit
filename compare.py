@@ -1,3 +1,4 @@
+import sys
 import os
 import numpy as np
 import pandas as pd
@@ -67,8 +68,18 @@ def parse_timestamp(value):
 print("Reading input.csv...")
 t0 = time.time()
 
+if len(sys.argv) < 4:
+    print(
+        "Usage:\n"
+        "python sec2.py processed.csv result.csv train_data.csv [output.csv]"
+    )
+    raise SystemExit
+
+INPUT_FILE = sys.argv[1]
+PROCESSED_FILE = sys.argv[2]
+RESULT_FILE = sys.argv[3]
 input_df = pd.read_csv(
-    "input_1.csv",
+    INPUT_FILE,
     usecols=["timestamp", "dhp"]
 )
 
@@ -118,7 +129,7 @@ print("Input rows:", len(input_df))
 
 print("Reading processed.csv...")
 
-processed = pd.read_csv("processed.csv")
+processed = pd.read_csv(PROCESSED_FILE)
 
 processed.columns = processed.columns.str.lower()
 
@@ -237,7 +248,7 @@ print("Saved comparison plot.")
 # Read PBU results
 # ===========================================================
 
-results = pd.read_csv("result.csv")
+results = pd.read_csv(RESULT_FILE)
 
 results.columns = results.columns.str.lower()
 

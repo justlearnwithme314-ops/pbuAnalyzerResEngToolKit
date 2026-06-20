@@ -22,7 +22,38 @@ def home():
 
     return render_template("index.html")
 
+@app.route(
+    "/run_compare",
+    methods=["POST"]
+)
+def run_compare():
 
+    raw_file = request.files["raw"]
+    processed_file = request.files["processed"]
+    result_file = request.files["result"]
+
+    raw_file.save("input_1.csv")
+
+    processed_file.save(
+        "processed.csv"
+    )
+
+    result_file.save(
+        "result.csv"
+    )
+
+    subprocess.run([
+
+        "python",
+        "compare.py"
+
+    ])
+
+    return redirect(
+        url_for(
+            "comparison_results"
+        )
+    )
 @app.route("/run", methods=["POST"])
 def run_analysis():
 
@@ -108,10 +139,50 @@ def run_analysis():
             "result.csv",
             "reservoir_predictions.csv"
         ])
+        subprocess.run([
+
+            "python",
+            "compare.py",
+
+            "input_1.csv",
+            "processed.csv",
+            "result.csv"
+
+        ])
 
         return redirect(url_for("results"))
 
+@app.route("/compare")
+def compare():
 
+    return render_template(
+        "compare.html"
+    )
+@app.route(
+    "/comparison_results"
+)
+def comparison_results():
+
+    plots = []
+
+    folder = os.path.join(
+        "static",
+        "comparison"
+    )
+
+    if os.path.exists(folder):
+
+        plots = sorted(
+            os.listdir(folder)
+        )
+
+    return render_template(
+
+        "comparison_results.html",
+
+        plots=plots
+
+    )
 @app.route("/results")
 def results():
 
