@@ -1,51 +1,50 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
     <title>PBU Analyzer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<h1>PBU Analysis Tool</h1>
+    <h1>PBU Analysis Tool</h1>
 
-<form action="/run" method="post" enctype="multipart/form-data">
+    <form action="/run" method="post" enctype="multipart/form-data">
 
-    <input type="file" name="file">
+        <input type="file" name="file">
 
-    <br><br>
+        <br><br>
 
-    <input type="radio"
-           name="mode"
-           value="preprocess"
-           checked>
+        <input type="radio"
+               name="mode"
+               value="preprocess"
+               checked>
+        Preprocess only
 
-    Preprocess only
+        <br>
 
-    <br>
+        <input type="radio"
+               name="mode"
+               value="full">
+        Preprocess + Analyze
 
-    <input type="radio"
-           name="mode"
-           value="full">
+        <br>
 
-    Preprocess + Analyze
+        <input type="radio"
+               name="mode"
+               value="analyze">
+        Analyze already preprocessed file
 
-    <br>
+        <br><br>
 
-    <input type="radio"
-           name="mode"
-           value="analyze">
+        <button type="submit">
+            Run
+        </button>
 
-    Analyze already preprocessed file
+    </form>
 
-    <br><br>
-
-    <button type="submit">
-        Run
-    </button>
-
-</form>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 

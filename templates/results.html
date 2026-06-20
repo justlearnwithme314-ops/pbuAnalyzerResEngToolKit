@@ -1,39 +1,29 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-
-<title>Results</title>
-
-<style>
-
-img {
-    width: 800px;
-    margin-bottom: 20px;
-}
-
-</style>
-
+    <title>Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 
 <body>
 
-<h1>Detected PBUs</h1>
+<div class="container">
 
-{{ pbus|safe }}
+    <h1>Detected PBUs</h1>
+    {{ pbus|safe }}
 
-<h1>Reservoir Predictions</h1>
+    <h1>Reservoir Predictions</h1>
+    {{ preds|safe }}
 
-{{ preds|safe }}
+    <h1>Plots</h1>
+    {% for plot in plots %}
+    <img src="/static/plots/{{ plot }}" alt="{{ plot }}">
+    {% endfor %}
 
-<h1>Plots</h1>
+</div>
 
-{% for plot in plots %}
-
-<img src="/static/plots/{{ plot }}">
-
-{% endfor %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
 </body>
 
