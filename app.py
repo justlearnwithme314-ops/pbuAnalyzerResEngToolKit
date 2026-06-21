@@ -282,26 +282,6 @@ def view():
     "/run_view",
     methods=["POST"]
 )
-@app.route("/view_results")
-def view_results():
-
-    plots = []
-
-    folder = os.path.join(
-        "static",
-        "view"
-    )
-
-    if os.path.exists(folder):
-
-        plots = sorted(
-            os.listdir(folder)
-        )
-
-    return render_template(
-        "view_results.html",
-        plots=plots
-    )
 def run_view():
 
     file = request.files["file"]
@@ -325,8 +305,36 @@ def run_view():
         )
     )
 
+
+@app.route("/view_results")
+def view_results():
+
+    plots = []
+
+    folder = os.path.join(
+        "static",
+        "view"
+    )
+
+    if os.path.exists(folder):
+
+        plots = sorted(
+            os.listdir(folder)
+        )
+
+    print(
+        "Viewer plots:",
+        len(plots)
+    )
+
+    return render_template(
+        "view_results.html",
+        plots=plots
+    )
 if __name__ == "__main__":
 
     app.run(
-        debug=True
+        debug=True,
+        use_reloader = False
+        
     )
